@@ -14,6 +14,13 @@ tags: ["gemini", "gemini-4-pro", "benchmark-verification", "creative-coding", "c
 # 谷歌憋了三年的大招！Gemini 4 Pro 首测封神
 
 > [!NOTE]
+> **导读｜阅读路线**
+>
+> 背景知识：模型 demo 的可归因性至少需要明确端点版本、prompt、采样参数、工具环境与完整输出；视觉效果的单次对比也不等同于 benchmark。产品名、内部实验型号和正式发布模型若未被一手材料连接，应视为不同对象。
+>
+> 本文最适合作为“传闻模型如何被 demo、榜单和安全故事包装成发布事实”的案例，而不是 Gemini 4 Pro 的可靠测评。阅读时把三条证据链拆开：模型是否已正式发布，创意编码 demo 能否归因并复现，安全事件是否来自同一型号。建议先读开头的发布状态核验，再浏览 demo 段落，最后单独处理 benchmark 与安全叙事。官方模型卡能确认的内容最强；匿名截图、未给 prompt 的对比和“全球第一”结论最弱。带着这个问题阅读全文：每个性能判断是否都能追溯到明确模型端点、输入、输出和评分方法？
+
+> [!NOTE]
 > **阅读说明｜核心结论。** 本文适合作为“模型传闻如何被包装成首测”的样本，不能作为 Gemini 4 Pro 已发布或性能领先的可靠证据。截至 2026-09-29，Google DeepMind 官方模型卡目录最高列到 Gemini 3.8，没有 Gemini 4 Pro；Google 9 月正式发布的是 Gemini 3.8 Flash 与 3.8 Flash Cyber。[Google DeepMind 模型卡目录](https://deepmind.google/models/model-cards/)；[Google 官方发布说明](https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/)
 >
 > 原文没有给出 demo 作者、原帖、模型端点、prompt、代码、可交互页面或 benchmark 记录。以下完整保留实质正文和图片位置，并区分不可归因的 demo、不可复核的性能结论，以及确有报道但缺失关键上下文的安全事件。

@@ -14,6 +14,13 @@ tags: ["jev", "rlcd", "calibration", "typed-decisions", "openjev", "semif", "lay
 # Jev 与 Jev-like 开源模型观察
 
 > [!NOTE]
+> **导读｜阅读路线**
+>
+> 背景知识：读取生成式 LLM 的下一个 token logits、训练判别式 encoder，以及在 LLM 上加决策头，虽然都能输出选项分数，却有不同的双向上下文、计算路径和校准性质。RLCD 是厂商使用的训练范式名称，公开信息不足以据此还原其具体算法。
+>
+> 本文比较 Jev 与若干开源“复刻”，关键不在谁最像原模型，而在区分输出接口、推理方式、网络架构和训练目标四个层次。阅读时抓住三类路线：直接读取 LLM 候选 logits，双向 encoder 加决策头，以及 LLM 底座加 adapter/head。建议先理解 typed probabilistic decision，再读分类框架，最后审视个人测试与 RLCD 推断。公开资料能确认 Jev 的接口和部分厂商主张，但底层架构、训练算法和校准证据不足。带着这个问题阅读全文：开源项目复现的是 Jev 的外部行为、模型结构，还是仅仅相似的 API 形状？
+
+> [!NOTE]
 >
 > ## 阅读说明
 >

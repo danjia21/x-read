@@ -23,6 +23,13 @@ tags:
 
 # 高通这一代骁龙：手机芯片，开始为Agent重新设计
 
+> [!NOTE]
+> **导读｜阅读路线**
+>
+> 背景知识：端侧 Agent 是持续、异步且多模态的工作负载，瓶颈常落在内存带宽、数据搬运、热预算与低功耗常驻感知，而非峰值算力。MoE 还会把“模型总参数可容纳性”和“每次激活计算量”拆成两个约束。
+>
+> 本文讨论手机 SoC 如何为持续运行的端侧 Agent 调整异构计算、内存、感知和软件栈，而不只是比较峰值 NPU TOPS。阅读时抓住三条线：CPU/GPU/NPU 与共享内存怎样协同，多模态与 MoE 如何受带宽和功耗约束，以及持续感知、权限与端云分工是否具备系统支持。建议先读架构变化，再看模型规格和场景，最后审视性能数字。产品型号与官方规格可确认，多数提升比例来自厂商参考设计，真实手机上的续航、热稳定和 Agent 体验仍待独立测试。带着这个问题阅读全文：哪些升级真正降低了长期 Agent 工作负载的系统瓶颈，而不是只提高短时 benchmark？
+
 ![image](https://mmbiz.qpic.cn/sz_mmbiz_png/KmXPKA19gW889cR13aBX42evqQIRibKlicoCrHPEpT0tQiceNphESCa2eJTqstP8G0yqMTkeMFrOGue6kOyCKdTkA/640?wx_fmt=png&from=appmsg)
 
 编辑｜泽南

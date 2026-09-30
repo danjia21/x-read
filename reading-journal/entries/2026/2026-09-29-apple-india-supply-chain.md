@@ -21,6 +21,13 @@ tags:
 
 # 苹果新CEO发现事情不对劲了
 
+> [!NOTE]
+> **导读｜阅读路线**
+>
+> 背景知识：消费电子制造中的 NPI（new product introduction）负责把设计导入稳定量产，极度依赖供应商、设备商和工程团队的近距离协作。首代高复杂度产品集中在成熟基地，可能反映良率爬坡需求，并不天然等于长期供应链战略逆转。
+>
+> 本文用一款新品的供应商分布解释苹果中印制造布局，但真正要检验的是“单一产品事实”能否推出“公司战略转向”。阅读时抓住三条线：中国供应链在 NPI、良率和工程协同上的优势，印度扩产面临的基础设施与治理约束，以及新 CEO 是否真的踩下刹车。建议先核对产品和领导层时间线，再读供应链案例，最后评估因果链。可核实的是部分官方节点和产业约束；“核心供应链全部回流”“印度战略失败”等强结论证据不足。带着这个问题阅读全文：观察到的生产集中是首代复杂产品的阶段性选择，还是长期资本配置已经改变？
+
 ![image](https://mmbiz.qpic.cn/sz_mmbiz_png/E0iclrZZ6AiavJYXZGyVdUGk4Ypmx1zFBTmQTvSicib1vjSricuqT4VFlcqdUNuibiazlr87Vr8vpXj0LTV8sVMS1IUkE97moLw3lhza5JkoET3TkI/640?wx_fmt=png&from=appmsg)
 
 # 作者丨陈旭

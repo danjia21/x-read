@@ -27,13 +27,14 @@ Read [references/journal-format.md](references/journal-format.md) before creatin
 
 For a URL input, the entry must use **原文 + 段后注解** format:
 
+- Immediately after the source article's title and before its first substantive passage, add a mandatory **导读** callout. Make it a compact reading companion rather than a replacement summary: first supply the minimum background needed to understand the article's recent, niche, cross-disciplinary, or easily confused concepts; then state the central thesis in one sentence, identify the 2–4 main threads or conceptual layers, give a practical reading order or section map, separate the strongest evidence from claims that remain promotional, speculative, or unverified, and end with one high-value question for the reader to carry through the article. Assume a technically sophisticated reader: omit standard ML, mathematics, and computer-vision background unless it is essential to the article's argument. Adapt the labels and length to the source; do not force irrelevant sections or repeat the later annotations. For non-Chinese entries, write the equivalent guide in the entry language.
 - Preserve the complete substantive article body in its original order and wording, including headings, lists, code, tables, and meaningful image placeholders or captions.
 - Preserve the source article's Markdown structure directly: do not quote, indent, wrap, or otherwise restyle the original headings, paragraphs, lists, code blocks, tables, links, or images.
 - Put every addition made by the journal entry—reading notes, added headers, annotations, verification, summaries, takeaways, open questions, and other editorial text—inside a GFM callout block. Use `> [!NOTE]` by default, followed by a clear label such as `**注解｜主题**`. Place each annotation block immediately after the source passage it explains.
 - Keep YAML frontmatter outside callouts because it is entry metadata, not article content. The first ordinary Markdown heading after frontmatter should be the source article's own title, not a journal-authored replacement title.
 - Do not replace the article with a rewritten note, thematic summary, reorganized walkthrough, or independently authored essay. Do not silently compress, paraphrase, merge, reorder, or omit substantive source passages.
 - Exclude only page chrome and clearly non-article boilerplate such as navigation controls, QR instructions, reaction widgets, repeated subscription prompts, and unrelated footer recommendations. When uncertain whether material is substantive, retain it.
-- Added summaries, takeaways, or open questions are optional and may appear only after the complete annotated original; they never substitute for it.
+- The required opening 导读 is the only summary-like addition that appears before the complete article body. Additional summaries, takeaways, or open questions are optional and may appear only after the complete annotated original; they never substitute for it.
 
 Make the annotation callouts easier to absorb than the source while preserving meaningful technical depth, as a knowledgeable research colleague explaining an adjacent specialty. Keep any equations, pseudocode, tables, or diagrams added by the journal inside the same callout block and use them only when they materially help the adjacent passage.
 
@@ -41,4 +42,4 @@ Use the configured journal location. If none is configured or evident from the w
 
 ## Finish
 
-Present the same original-text-plus-annotations entry in chat, then report the saved entry path and that the catalog was updated. Do not present only a replacement summary in chat. Briefly disclose important uncertainty or access limitations. Cite the supplied article and every external source with direct links, preferring primary sources.
+Lead the chat response with the same 导读 used in the saved entry, then present the same original-text-plus-annotations entry and report the saved entry path and that the catalog was updated. Do not present only a replacement summary in chat. Briefly disclose important uncertainty or access limitations. Cite the supplied article and every external source with direct links, preferring primary sources.

@@ -23,6 +23,13 @@ tags:
 
 # Hacking OpenAI
 
+> [!NOTE]
+> **Guide | Reading route**
+>
+> Background: A memory-corruption bug becomes organizational compromise only when attacker-controlled media reaches a vulnerable decoder, the process exposes useful privileges, and identity federation enables a further pivot. SSO simplifies authentication but also concentrates trust, making audience restrictions and least privilege critical containment layers.
+>
+> The report is best read as a chained security failure—media parsing, forum compromise, SSO trust, and internal access—with Claude assisting parts of the research rather than independently “hacking OpenAI.” Track three threads: the libheif memory-corruption path, the identity and connector pivot, and the evidence for AI-assisted exploit development. Read the technical chain first, then the impact claims, and finally the disclosure narrative. Public advisories support the vulnerable components and fixes; account takeover, internal reach, model contribution, cost, and detection claims remain largely researcher-reported. Keep one question in view: which controls would have broken the chain even if the initial parser bug remained exploitable?
+
 A heap overflow and SSO misconfiguration to compromise OpenAI internal repositories
 
 > [!NOTE]

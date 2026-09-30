@@ -25,6 +25,13 @@ tags:
 # Apple Reference Image: A New Approach for Verified Photography
 
 > [!NOTE]
+> **Guide | Reading route**
+>
+> Background: Content provenance and scene truth are different guarantees. C2PA records signed claims and edit history, while capture attestation tries to bind media to trusted sensor and processing states; neither alone proves that the photographed event was staged honestly or interpreted correctly.
+>
+> Apple Reference Image proposes a sensor-to-JPEG attestation chain for proving that a file came from a real iPhone sensor at a particular time, while trying to avoid persistent photographer identity. Track four layers: secure sensor capture, computational-photography integrity, Private Cloud Compute processing, and timestamp/revocation verification. Read the threat model and guarantee first, then the protocol flow, and finally the privacy and recovery mechanisms. Standard cryptographic components and PCC design are inspectable to varying degrees, but unreleased sensor behavior, hidden model weights, service operation, and the claim that even Apple cannot observe data remain vendor assertions. Keep one question in view: which parts of the guarantee are cryptographically verifiable by an outsider, and which still require institutional trust in Apple?
+
+> [!NOTE]
 > **Reading note | Source and evidence boundary**
 >
 > This entry preserves the complete substantive article as published by Apple and retrieved on 2026-09-30, excluding navigation and sharing controls. Architectural statements about unreleased custom sensor behavior, Apple-operated services, the hidden-weight confidence model, and implementation details are vendor claims unless independently inspectable artifacts or specifications are linked. The annotations distinguish cryptographically verifiable properties from institutional trust and operational assumptions. [Original article](https://security.apple.com/blog/apple-reference-image/)

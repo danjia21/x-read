@@ -41,11 +41,24 @@ Quote ambiguous strings. Use `unknown` for an unknown scalar and `[]` for an unk
 
 Use original-text-plus-annotations format for URL-sourced articles. The entry body should contain:
 
-1. YAML source metadata, followed by the source article's own title and complete substantive body in source order and original Markdown formatting.
-2. A callout containing a brief reading note when source, access, or evidence limitations need disclosure.
-3. A labeled callout immediately after any original passage that benefits from explanation, context, verification, qualification, or criticism.
-4. Optional takeaways or open questions in callouts only after the complete annotated original.
-5. Direct links to the article and all external references.
+1. YAML source metadata, followed by the source article's own title.
+2. A required 导读 callout immediately after that title and before the first substantive source passage.
+3. The complete substantive body in source order and original Markdown formatting.
+4. A callout containing a brief reading note when source, access, or evidence limitations need disclosure; combine it with the 导读 when that reads naturally.
+5. A labeled callout immediately after any original passage that benefits from explanation, context, verification, qualification, or criticism.
+6. Optional takeaways or open questions in callouts only after the complete annotated original.
+7. Direct links to the article and all external references.
+
+The opening 导读 should help the reader navigate rather than merely summarize. In a compact form appropriate to the article, include:
+
+- the minimum background needed for recent, niche, neighboring-domain, or easily confused concepts, while omitting standard material the intended reader is expected to know;
+- a one-sentence statement of the central thesis;
+- the 2–4 main technical or argumentative threads;
+- a suggested reading order or section map;
+- the key evidence boundary: what is well supported versus what remains asserted, speculative, promotional, or unverified;
+- one high-value question to keep in mind while reading.
+
+Use judgment rather than mechanically reproducing these as five headings. Avoid duplicating detailed annotations that belong beside later passages. For Chinese entries, label the callout `**导读｜阅读路线**` or another clear `导读｜…` variant; use an equivalent label in the entry language otherwise.
 
 Preserve original headings, paragraphs, lists, code, tables, captions, and meaningful image positions without adding blockquote markers or other wrappers. Do not transform the article into a new outline or replace it with an overview, even if a rewrite would be shorter or more coherent. Do not paraphrase source text. Remove only unmistakable webpage chrome and unrelated boilerplate; retain doubtful material.
 
@@ -56,6 +69,23 @@ Use this format for journal-authored material:
 > **注解｜简短主题**
 >
 > Explanation, verification, and citations belong here.
+```
+
+Example opening guide shape:
+
+```markdown
+> [!NOTE]
+> **导读｜阅读路线**
+>
+> 背景知识：理解本文需要先区分……
+>
+> 一句话主旨……
+>
+> 阅读时抓住三条主线：……
+>
+> 建议先读……；其中……已有较强证据，而……仍待独立验证。
+>
+> 带着这个问题阅读全文：……？
 ```
 
 Use the same callout shape for journal-authored reading notes, summaries, takeaways, open questions, and added section labels. Do not place an added heading outside the block merely to introduce a callout. YAML frontmatter is the sole structural exception because it is machine-readable metadata. The original article itself must not be placed in a callout or blockquote.
