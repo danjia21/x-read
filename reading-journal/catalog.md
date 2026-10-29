@@ -87,6 +87,7 @@
 
 ## AI Agents
 
+- [Effective harnesses for long-running agents — State, Verification, and Handoffs](entries/2026/2026-10-29-effective-harnesses-for-long-running-agents.md) — Anthropic Engineering / Justin Young, read 2026-10-29. Original sourced analysis of persistent state, completion evidence, recovery, and the limits of the reported harness results.
 - [DeepSeek Harness 桌面版：Agent Harness 到底是什么（原文注解版）](entries/2026/2026-10-02-deepseek-agent-harness.md) — 极市平台 / 量子位, read 2026-10-02. 区分模型、Agent、工具、MCP、harness 与桌面 UI，说明长任务、多 Agent 和可观测性分别由哪一层承担。
 - [Gemini 4 Argon：百万 Token 输出、长周期 Agent 与证据边界（原文注解版）](entries/2026/2026-10-01-gemini-4-argon.md) — 机器之心, read 2026-10-01. 区分百万 Token 输出容量与有效任务长度，核验软件迁移、企业工作流及安全 Agent 的厂商数据和生产证据缺口。
 - [Muse 挤下 ChatGPT？下载、股价与人才叙事的证据边界（原文注解版）](entries/2026/2026-09-29-meta-muse-app-store-claims.md) — 明天研究室, read 2026-09-29. 核验 Muse 的发布、后台执行与浏览器操作能力，并标出 App Store、下载、留存及竞品对比的证据缺口。
@@ -151,6 +152,7 @@
 
 ## Agent Infrastructure
 
+- [Effective harnesses for long-running agents — State, Verification, and Handoffs](entries/2026/2026-10-29-effective-harnesses-for-long-running-agents.md) — Anthropic Engineering / Justin Young, read 2026-10-29. Original sourced analysis of persistent state, completion evidence, recovery, and the limits of the reported harness results.
 - [DeepSeek Harness 桌面版：Agent Harness 到底是什么（原文注解版）](entries/2026/2026-10-02-deepseek-agent-harness.md) — 极市平台 / 量子位, read 2026-10-02. 从控制循环、工具协议、权限、状态、恢复、调度与运行轨迹六个维度解释 harness 的系统职责。
 
 ## Edge AI
@@ -179,6 +181,7 @@
 
 ## All entries
 
+- [Effective harnesses for long-running agents — State, Verification, and Handoffs](entries/2026/2026-10-29-effective-harnesses-for-long-running-agents.md) — Anthropic Engineering / Justin Young, read 2026-10-29. Original sourced analysis of persistent state, completion evidence, recovery, and the limits of the reported harness results.
 - [Character.AI 破产：人才、商业模式与 Chapter 11 的证据边界（原文注解版）](entries/2026/2026-10-19-character-ai-bankruptcy.md) — 后后前前, read 2026-10-19. 完整保留实质正文，核验破产出售、Google/Disney 许可与人才迁移，并将可证事实和作者的死亡螺旋叙事分开。
 - [Waymo’s 10 AI Lessons from 200+ Million Autonomous Miles (Annotated)](entries/2026/2026-10-05-waymo-10-ai-lessons.md) — Waymo, read 2026-10-05. Full original article with adjacent analysis of its L4 architecture, public evidence, causal limits, and the distinction between general safety principles and Waymo-specific conclusions.
 - [FluxVLA Engine：从数据到真机部署的工程闭环与证据边界（原文注解版）](entries/2026/2026-10-02-fluxvla-engine.md) — 极市平台, read 2026-10-02. 保留完整实质正文并核验平台架构、仿真评测、推理加速、异步执行和真机 benchmark 的证据边界。
