@@ -1,5 +1,9 @@
 # Reading Journal Catalog
 
+## Autonomous Driving
+
+- [Waymo’s 10 AI Lessons from 200+ Million Autonomous Miles (Annotated)](entries/2026/2026-10-05-waymo-10-ai-lessons.md) — Waymo, read 2026-10-05. Preserves the full article and separates transferable L4 architecture lessons from Waymo-specific claims about sensors, maps, simulation, VLMs, governance, and fleet experience.
+
 ## Media Provenance
 
 - [Apple Reference Image: Sensor-to-JPEG Attestation, Privacy, and Trust Boundaries (Annotated)](entries/2026/2026-09-30-apple-reference-image.md) — Apple Security Research, read 2026-09-30. Preserves Apple’s full article and separates sensor-to-render guarantees from institutional trust, privacy, revocation, and contextual-authenticity limits.
@@ -14,18 +18,21 @@
 
 ## Embodied AI
 
+- [FluxVLA Engine：从数据到真机部署的工程闭环与证据边界（原文注解版）](entries/2026/2026-10-02-fluxvla-engine.md) — 极市平台, read 2026-10-02. 完整保留实质正文，核验统一工程 contract、闭环评测、RTC、推理加速与真机证据边界。
 - [OM-1 与 Omnibody：从人类示范到跨本体机器人策略（原文注解版）](entries/2026/2026-09-29-om-1-omnibody-robot-foundation-model.md) — 机器人前瞻, read 2026-09-29. 完整保留原文，核验 OM-1、Omnibody Hand、跨本体泛化与无机器人数据训练的证据边界。
 - [GPT-6 Astra 具身策略：认知层、动作先验与评测边界（原文注解版）](entries/2026/2026-09-29-gpt-6-astra-embodied-policy.md) — 机器之心, read 2026-09-29. 核验 50 个对齐 RoboDojo case 的 Direct/混合策略结果，并区分可追溯实验、非同条件基线与无来源产业数字。
 - [VLA 的 Action 表示难题：数据、跨本体复用与 Scaling（原文注解版）](entries/2026/2026-09-29-vla-action-representation.md) — 后见之偏, read 2026-09-29. 完整保留原文，核验具身数据可观测性、跨本体动作表示、VLM 到 VLA 的迁移与端侧部署边界。
 
 ## Robot Learning
 
+- [FluxVLA Engine：从数据到真机部署的工程闭环与证据边界（原文注解版）](entries/2026/2026-10-02-fluxvla-engine.md) — 极市平台, read 2026-10-02. 区分策略、工程平台与本体贡献，解析 artifact、runner/operator、异步 chunk 和轨迹后处理的系统边界。
 - [OM-1 与 Omnibody：从人类示范到跨本体机器人策略（原文注解版）](entries/2026/2026-09-29-om-1-omnibody-robot-foundation-model.md) — 机器人前瞻, read 2026-09-29. 区分人类示范高层策略、机体特定仿真控制与“任何机器人”零样本主张，并给出可复现评测要求。
 - [GPT-6 Astra 具身策略：认知层、动作先验与评测边界（原文注解版）](entries/2026/2026-09-29-gpt-6-astra-embodied-policy.md) — 机器之心, read 2026-09-29. 解释通用多模态模型负责语义判断和恢复、π₀.₅ 提供接触与运动先验的分层互补结构。
 - [VLA 的 Action 表示难题：数据、跨本体复用与 Scaling（原文注解版）](entries/2026/2026-09-29-vla-action-representation.md) — 后见之偏, read 2026-09-29. 沿原文区分统一数据格式、统一模型接口与统一 Action 语义，并提出可执行性、可迁移性和充分性评测框架。
 
 ## Multimodal Models
 
+- [Waymo’s 10 AI Lessons from 200+ Million Autonomous Miles (Annotated)](entries/2026/2026-10-05-waymo-10-ai-lessons.md) — Waymo, read 2026-10-05. Examines heterogeneous sensor fusion and the fast sensor encoder / slow Driving VLM split, including the interface and validation questions left unpublished.
 - [VLA 的 Action 表示难题：数据、跨本体复用与 Scaling（原文注解版）](entries/2026/2026-09-29-vla-action-representation.md) — 后见之偏, read 2026-09-29. 结合 RT-2、Open X-Embodiment、π₀ 与 Gemini Robotics On-Device 2 核验 VLA 的能力和未决问题。
 
 ## Robot Data Collection
@@ -43,9 +50,14 @@
 
 ## AI Startups and Investment
 
+- [Character.AI 破产：人才、商业模式与 Chapter 11 的证据边界（原文注解版）](entries/2026/2026-10-19-character-ai-bankruptcy.md) — 后后前前, read 2026-10-19. 保留完整原文，区分 Chapter 11、stalking-horse bid、人才迁移与负单位经济，并标出“公司已死”和估值比较的证据边界。
 - [Muse 挤下 ChatGPT？下载、股价与人才叙事的证据边界（原文注解版）](entries/2026/2026-09-29-meta-muse-app-store-claims.md) — 明天研究室, read 2026-09-29. 区分 Meta 对 Scale AI 的少数股权投资、Alexandr Wang 的个人角色与 Muse 早期增长叙事，核查 143 亿美元口径和价值归因。
 - [AMD 82 亿美元收购 World Labs：空间智能、算力协同与回报测算（原文注解版）](entries/2026/2026-09-29-amd-acquires-world-labs.md) — 量子位 / 极市平台, read 2026-09-29. 将 82 亿美元交易事实与融资估值、创始人持股、MOIC 和 IRR 的情景测算分开。
 - [世界模型是上不了桌的另开一桌（原文注解版）](entries/2026/2026-09-29-world-models-industry-critique.md) — 葬AI, read 2026-09-29. 拆分技术路线、融资叙事和未经独立证实的公司动机判断。
+
+## Consumer AI
+
+- [Character.AI 破产：人才、商业模式与 Chapter 11 的证据边界（原文注解版）](entries/2026/2026-10-19-character-ai-bankruptcy.md) — 后后前前, read 2026-10-19. 从付费率、推理成本、安全与诉讼负债、关键人才流动四个维度审视 AI 陪伴产品的可持续性。
 
 ## AI Hardware
 
@@ -70,10 +82,13 @@
 
 ## Open Source Software
 
+- [DeepSeek Harness 桌面版：Agent Harness 到底是什么（原文注解版）](entries/2026/2026-10-02-deepseek-agent-harness.md) — 极市平台 / 量子位, read 2026-10-02. 结合官方仓库解释开源 agent harness 的控制循环、插件架构、持久化状态及桌面封装边界。
 - [GitHub README 里的 ROFL 区块链（原文注解版）](entries/2026/2026-09-29-rofl-readme-blockchain.md) — 给点知识, read 2026-09-29. 沿原文解释 GitHub Issues、Actions、README 与可重放账本如何组合成一条教学链。
 
 ## AI Agents
 
+- [DeepSeek Harness 桌面版：Agent Harness 到底是什么（原文注解版）](entries/2026/2026-10-02-deepseek-agent-harness.md) — 极市平台 / 量子位, read 2026-10-02. 区分模型、Agent、工具、MCP、harness 与桌面 UI，说明长任务、多 Agent 和可观测性分别由哪一层承担。
+- [Gemini 4 Argon：百万 Token 输出、长周期 Agent 与证据边界（原文注解版）](entries/2026/2026-10-01-gemini-4-argon.md) — 机器之心, read 2026-10-01. 区分百万 Token 输出容量与有效任务长度，核验软件迁移、企业工作流及安全 Agent 的厂商数据和生产证据缺口。
 - [Muse 挤下 ChatGPT？下载、股价与人才叙事的证据边界（原文注解版）](entries/2026/2026-09-29-meta-muse-app-store-claims.md) — 明天研究室, read 2026-09-29. 核验 Muse 的发布、后台执行与浏览器操作能力，并标出 App Store、下载、留存及竞品对比的证据缺口。
 - [Claude，黑进了 OpenAI：依赖链、SSO 与 AI 辅助漏洞利用（原文注解版）](entries/2026/2026-09-29-claude-hacked-openai.md) — 机器之心, read 2026-09-29. 保留完整报道，拆解 HEIF RCE、SSO、Codex 连接器与 AI 辅助 exploit 的证据边界。
 - [第六代骁龙 8：为端侧 Agent 重构的移动计算平台（原文注解版）](entries/2026/2026-09-29-snapdragon-agentic-ai-architecture.md) — 机器之心, read 2026-09-29. 从异构调度、持续感知、权限治理和跨设备执行审视移动 Agent 的系统条件。
@@ -94,6 +109,7 @@
 
 ## Large Language Models
 
+- [Gemini 4 Argon：百万 Token 输出、长周期 Agent 与证据边界（原文注解版）](entries/2026/2026-10-01-gemini-4-argon.md) — 机器之心, read 2026-10-01. 核验受限发布、定价和 1M 输出上限，并说明 output cap、context window 与长轨迹可靠性的区别。
 - [扎克伯格复盘 Meta AI：Llama 4、Muse 与小组科研（原文注解版）](entries/2026/2026-09-29-meta-muse-llama4-organization.md) — 高飞的电子替身, read 2026-09-29. 对照 Llama 4 官方发布口径，区分模型表现、LMArena 实验版本与组织重构的因果叙事。
 - [Gemini 4 Pro ‘首测封神’：未发布模型、Demo 证据与安全事件（原文注解版）](entries/2026/2026-09-29-gemini-4-pro-unverified-first-test.md) — FreeAI, read 2026-09-29. 对照 Google 官方模型卡，指出截至阅读日尚无 Gemini 4 Pro 正式发布证据，并审视“全面第一”的推理跳跃。
 - [最新 Jev 模型怎么玩？全网 22 个爆火玩法！（原文注解版）](entries/2026/2026-09-29-jev-22-use-cases.md) — 极市平台 / Datawhale, read 2026-09-29. 沿原文解释 Jev 与生成式 LLM 的接口、能力边界和系统分工。
@@ -102,6 +118,8 @@
 
 ## Model Evaluation
 
+- [FluxVLA Engine：从数据到真机部署的工程闭环与证据边界（原文注解版）](entries/2026/2026-10-02-fluxvla-engine.md) — 极市平台, read 2026-10-02. 审视 LIBERO 饱和、RoboCasa 数据预算、API 策略公平性、加速计时协议与真机 trial 统计。
+- [Gemini 4 Argon：百万 Token 输出、长周期 Agent 与证据边界（原文注解版）](entries/2026/2026-10-01-gemini-4-argon.md) — 机器之心, read 2026-10-01. 审视 DeepSWE、Vals、AutomationBench、LVBench 与 CWE-bench 的可复现性，以及榜单到生产任务的外推边界。
 - [GPT-6 Astra 具身策略：认知层、动作先验与评测边界（原文注解版）](entries/2026/2026-09-29-gpt-6-astra-embodied-policy.md) — 机器之心, read 2026-09-29. 标注小样本任务子集、重加权公开基线、授权重试、视频选择偏差与 token 成本口径。
 - [Gemini 4 Pro ‘首测封神’：未发布模型、Demo 证据与安全事件（原文注解版）](entries/2026/2026-09-29-gemini-4-pro-unverified-first-test.md) — FreeAI, read 2026-09-29. 说明创意编码比较所需的模型归因、运行记录、预算对齐与盲评，并核查 Terminal-Bench 4.0 主张。
 - [最新 Jev 模型怎么玩？全网 22 个爆火玩法！（原文注解版）](entries/2026/2026-09-29-jev-22-use-cases.md) — 极市平台 / Datawhale, read 2026-09-29. 逐段审视 demo、厂商指标与独立证据，并补充校准和 selective-risk 评测框架。
@@ -115,11 +133,14 @@
 
 ## Software Security
 
+- [Gemini 4 Argon：百万 Token 输出、长周期 Agent 与证据边界（原文注解版）](entries/2026/2026-10-01-gemini-4-argon.md) — 机器之心, read 2026-10-01. 区分漏洞修复 benchmark、内部黑盒测试与真实漏洞披露，并列出误报、回归和授权隔离所需证据。
 - [Claude，黑进了 OpenAI：依赖链、SSO 与 AI 辅助漏洞利用（原文注解版）](entries/2026/2026-09-29-claude-hacked-openai.md) — 机器之心, read 2026-09-29. 对照 Discourse、Debian 与 Hacktron 一手材料，核验 libheif RCE、身份跃迁和纵深防御。
 - [Hacking OpenAI: libheif RCE, SSO Pivot, and AI-Assisted Exploit Development (Annotated)](entries/2026/2026-09-29-hacking-openai-libheif-sso.md) — Hacktron AI, read 2026-09-29. Annotates the libheif/ImageMagick/Discourse path, SSO and connector pivot, disclosure evidence, and layered mitigations.
 
 ## AI Safety
 
+- [Waymo’s 10 AI Lessons from 200+ Million Autonomous Miles (Annotated)](entries/2026/2026-10-05-waymo-10-ai-lessons.md) — Waymo, read 2026-10-05. Analyzes independent trajectory validation, closed-loop simulation, Critic evaluation, readiness governance, and the limits of aggregate fleet evidence.
+- [Gemini 4 Argon：百万 Token 输出、长周期 Agent 与证据边界（原文注解版）](entries/2026/2026-10-01-gemini-4-argon.md) — 机器之心, read 2026-10-01. 从间接提示注入、最小权限、轨迹监控与可回滚执行审视高权限长周期 Agent 的运行时安全。
 - [Claude，黑进了 OpenAI：依赖链、SSO 与 AI 辅助漏洞利用（原文注解版）](entries/2026/2026-09-29-claude-hacked-openai.md) — 机器之心, read 2026-09-29. 区分单点模型拒绝、环境伪装绕过与端到端权限控制，并审视护栏 ROI 的证据限度。
 - [扎克伯格复盘 Meta AI：Llama 4、Muse 与小组科研（原文注解版）](entries/2026/2026-09-29-meta-muse-llama4-organization.md) — 高飞的电子替身, read 2026-09-29. 拆解 discretion、Sentinel、凭证隔离与 Confidential VM，并说明产品激励不能覆盖全部安全外部性。
 - [Gemini 4 Pro ‘首测封神’：未发布模型、Demo 证据与安全事件（原文注解版）](entries/2026/2026-09-29-gemini-4-pro-unverified-first-test.md) — FreeAI, read 2026-09-29. 补全 Gemini 误入三家公司的环境误配置、凭据来源、停止行为及 agent containment 含义。
@@ -127,6 +148,10 @@
 ## AI Infrastructure
 
 - [扎克伯格复盘 Meta AI：Llama 4、Muse 与小组科研（原文注解版）](entries/2026/2026-09-29-meta-muse-llama4-organization.md) — 高飞的电子替身, read 2026-09-29. 区分数据中心功率、有效训练计算与模型能力，质疑从多吉瓦集群直接推导 AGI 的充分性。
+
+## Agent Infrastructure
+
+- [DeepSeek Harness 桌面版：Agent Harness 到底是什么（原文注解版）](entries/2026/2026-10-02-deepseek-agent-harness.md) — 极市平台 / 量子位, read 2026-10-02. 从控制循环、工具协议、权限、状态、恢复、调度与运行轨迹六个维度解释 harness 的系统职责。
 
 ## Edge AI
 
@@ -148,8 +173,17 @@
 
 - [Google 软件工程面试复盘：算法、项目深潜与证据边界（原文注解版）](entries/2026/2026-09-29-google-software-engineering-interview-experience.md) — 蒸汽教育Annie, read 2026-09-29. 对照 Google 官方职位与面试材料，标注轮次、招聘节奏和录用机制的证据边界。
 
+## Robotics Infrastructure
+
+- [FluxVLA Engine：从数据到真机部署的工程闭环与证据边界（原文注解版）](entries/2026/2026-10-02-fluxvla-engine.md) — 极市平台, read 2026-10-02. 解析统一配置、注册表、自包含 artifact、远程推理、RTC 与 operator 安全边界。
+
 ## All entries
 
+- [Character.AI 破产：人才、商业模式与 Chapter 11 的证据边界（原文注解版）](entries/2026/2026-10-19-character-ai-bankruptcy.md) — 后后前前, read 2026-10-19. 完整保留实质正文，核验破产出售、Google/Disney 许可与人才迁移，并将可证事实和作者的死亡螺旋叙事分开。
+- [Waymo’s 10 AI Lessons from 200+ Million Autonomous Miles (Annotated)](entries/2026/2026-10-05-waymo-10-ai-lessons.md) — Waymo, read 2026-10-05. Full original article with adjacent analysis of its L4 architecture, public evidence, causal limits, and the distinction between general safety principles and Waymo-specific conclusions.
+- [FluxVLA Engine：从数据到真机部署的工程闭环与证据边界（原文注解版）](entries/2026/2026-10-02-fluxvla-engine.md) — 极市平台, read 2026-10-02. 保留完整实质正文并核验平台架构、仿真评测、推理加速、异步执行和真机 benchmark 的证据边界。
+- [DeepSeek Harness 桌面版：Agent Harness 到底是什么（原文注解版）](entries/2026/2026-10-02-deepseek-agent-harness.md) — 极市平台 / 量子位, read 2026-10-02. 保留完整实质正文，重点解释 harness 如何把模型、工具、环境、状态、权限与任务生命周期组织成可工作的 Agent 系统。
+- [Gemini 4 Argon：百万 Token 输出、长周期 Agent 与证据边界（原文注解版）](entries/2026/2026-10-01-gemini-4-argon.md) — 机器之心, read 2026-10-01. 完整保留实质正文，核验发布、价格、百万 Token 输出、工程案例、安全评测与真实工作体验的证据边界。
 - [Apple Reference Image: Sensor-to-JPEG Attestation, Privacy, and Trust Boundaries (Annotated)](entries/2026/2026-09-30-apple-reference-image.md) — Apple Security Research, read 2026-09-30. Full original article with adjacent verification of the sensor-to-JPEG trust chain, timestamp semantics, post-quantum signature, revocation, privacy properties, and unresolved auditability questions.
 - [Muse 挤下 ChatGPT？下载、股价与人才叙事的证据边界（原文注解版）](entries/2026/2026-09-29-meta-muse-app-store-claims.md) — 明天研究室, read 2026-09-29. 保留完整实质正文，核验 Muse 产品能力、Scale AI 投资和股价时间线，并标注下载、榜单、留存与因果归因的证据边界。
 - [OM-1 与 Omnibody：从人类示范到跨本体机器人策略（原文注解版）](entries/2026/2026-09-29-om-1-omnibody-robot-foundation-model.md) — 机器人前瞻, read 2026-09-29. 保留完整实质正文并核验人类示范、跨本体部署、异步控制和多模态时序融合的公开证据与待验证项。
