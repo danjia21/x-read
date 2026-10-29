@@ -12,7 +12,9 @@ The repository also includes a small utility for turning public WeChat articles 
 
 ## Using the journal
 
-Entries are stored under `reading-journal/entries/YYYY/`. To have Codex read, verify, annotate, and catalog an article, use the technical reading journal skill:
+Entries are stored under `reading-journal/entries/YYYY/`. Paste an article URL into a chat opened in this repository to have Codex read, verify, annotate, save, and catalog it automatically. [`AGENTS.md`](AGENTS.md) defines this default and points to the local skill even when it is absent from the advertised skill list.
+
+You can also invoke the technical reading journal skill explicitly:
 
 > Use $technical-reading-journal to digest this technical article and add it to my reading journal: [URL]
 
