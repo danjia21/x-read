@@ -1,3 +1,16 @@
+# Start each conversation on latest main
+
+At the start of every new conversation, before handling the user's task:
+
+1. Check the repository's working tree and current branch.
+2. Run `git fetch origin main` from the repository root.
+3. If the working tree is clean, switch to `main` (create it tracking `origin/main` if absent), then run `git merge --ff-only origin/main`.
+4. Confirm that `HEAD` matches `origin/main`, and re-read this file after updating.
+
+Never discard local changes, reset local commits, or force a branch switch to meet this instruction. If local changes or divergent commits prevent the update, preserve them and report the blocker. If fetching fails, report that the latest remote state could not be verified; do not claim the checkout is current. Use the available network permission mechanism when needed.
+
+Explicit user instructions to use a different branch take precedence. Synchronize once per conversation, not before every turn, so ongoing work is preserved.
+
 # Default workflow: reading journal
 
 This repository is the user's personal technical reading journal. The normal input is a pasted article URL, with no additional instructions.
