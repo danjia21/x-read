@@ -6,13 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PUBLIC_URL: https://${SITE_DOMAIN:?Set SITE_DOMAIN}
-      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:?Set GITHUB_CLIENT_ID}
-      GITHUB_ALLOWED_USER_ID: ${GITHUB_ALLOWED_USER_ID:?Set GITHUB_ALLOWED_USER_ID}
-      GITHUB_CLIENT_SECRET_FILE: /run/secrets/github_client_secret
       CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-300}
-    secrets:
-      - github_client_secret
     read_only: true
     cap_drop:
       - ALL
@@ -40,7 +34,3 @@ networks:
   edge:
     external: true
     name: ${TRAEFIK_NETWORK:?Set TRAEFIK_NETWORK}
-
-secrets:
-  github_client_secret:
-    file: ${GITHUB_CLIENT_SECRET_FILE_HOST:?Set GITHUB_CLIENT_SECRET_FILE_HOST}

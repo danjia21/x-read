@@ -6,34 +6,6 @@ let entries = [], loading = true, lastChecked = '', failure = '';
 let refreshing = false;
 const formatChecked = timestamp => new Date(timestamp).toLocaleString([], {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
 const storage = {get(key) {try {return localStorage.getItem(key);} catch {return null;}}, set(key,value) {try {localStorage.setItem(key,value);} catch { /* Reading remains available when storage is disabled. */ }}};
-let csrf = '';
-function clearPrivateData() {
-  entries=[];
-  $('entries').replaceChildren();
-  try {for (const key of Object.keys(localStorage)) if(key.startsWith('x-read:library:')) localStorage.removeItem(key);} catch {}
-}
-async function checkSession() {
-  const response=await fetch('/api/session',{cache:'no-store'});
-  if(response.status===401) {clearPrivateData(); location.replace('/'); return false;}
-  if(!response.ok) throw new Error('Could not verify your session.');
-  const session=await response.json(); csrf=session.csrf;
-  return true;
-}
-clearPrivateData();
-$('logout').addEventListener('click',async()=>{
-  $('logout').disabled=true;
-  try {
-    const response=await fetch('/auth/logout',{method:'POST',headers:{'x-csrf-token':csrf}});
-    if(!response.ok && response.status!==401) throw new Error('Logout failed.');
-    clearPrivateData();
-    try {localStorage.setItem('x-read-logout',String(Date.now()));} catch {}
-    location.replace('/');
-  } catch {$('logout').disabled=false; $('status').textContent='Could not sign out. Please try again.';}
-});
-window.addEventListener('storage',event=>{if(event.key==='x-read-logout') {clearPrivateData();location.replace('/');}});
-window.addEventListener('pageshow',event=>{if(event.persisted) {clearPrivateData();location.reload();}});
-window.addEventListener('focus',()=>{checkSession().catch(()=>{});});
-setInterval(()=>{if(document.visibilityState==='visible') checkSession().catch(()=>{});},60000);
 let theme = storage.get('x-read-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 function applyTheme() {document.documentElement.dataset.theme=theme; $('theme').textContent=theme==='dark'?'Light mode':'Dark mode';}
 applyTheme(); $('theme').onclick=() => {theme=theme==='dark'?'light':'dark'; storage.set('x-read-theme',theme); applyTheme();};
@@ -45,7 +17,7 @@ function updateList() {
   $('entries').replaceChildren();
   for(const entry of visible) $('entries').append(renderListEntry(entry));
   if (!visible.length && !loading && !failure) $('entries').append(textElement('p',entries.length?'No readings match. Try a different search or topic.':'The library has no entries yet.','empty'));
-  $('status').textContent=loading ? (lastChecked ? `Last checked ${lastChecked} · Checking for updates…` : 'Fetching the latest readings…') : failure || `Last checked ${lastChecked}`;
+  $('status').textContent=loading ? (lastChecked ? `Last checked ${lastChecked} · Checking for updates…` : 'Fetching the latest readings…') : failure || (lastChecked ? `Last checked ${lastChecked}` : '');
 }
 function updateTopics() {
   const selected=$('topic').value;
@@ -59,9 +31,7 @@ async function refresh() {
   refreshing=true; loading=true; failure=''; $('retry').hidden=true;
   updateTopics(); updateList();
   try {
-    if(!await checkSession()) return;
     const response=await fetch('/api/library',{cache:'no-store'});
-    if(response.status===401) {clearPrivateData();location.replace('/');return;}
     const result=await response.json();
     if(!response.ok) {const error=new Error(result.error || 'Could not load readings.');error.retryAt=result.retryAt;throw error;}
     entries=result.entries;

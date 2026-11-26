@@ -1,4 +1,4 @@
-// Add the exact origin of your authenticated x-read deployment here.
+// Add the exact origin of your x-read deployment here.
 const trustedOrigins = new Set([
   'http://127.0.0.1:3000', 'http://127.0.0.1:4173',
   'http://localhost:3000', 'http://localhost:4173',

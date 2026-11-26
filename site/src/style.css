@@ -43,8 +43,7 @@ main{width:100%;max-width:none;padding:2.5rem 3.5rem;min-width:0}
 
 .masthead nav{display:flex;align-items:center;justify-content:flex-start;gap:.5rem}
 .masthead nav button{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:.55rem .65rem;line-height:1.3}
-.masthead nav .logout{margin:0;color:var(--muted);font-size:.8rem}
-@media(max-width:640px){.masthead{align-items:center}.masthead nav{flex-wrap:nowrap;justify-content:flex-end}.masthead nav .logout{order:-1}}
+@media(max-width:640px){.masthead{align-items:center}.masthead nav{flex-wrap:nowrap;justify-content:flex-end}}
 
 .entry-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;margin-top:.85rem;font-size:.9rem}
 .entry-actions button{background:var(--soft);border-color:var(--accent);color:var(--accent);font-weight:600}

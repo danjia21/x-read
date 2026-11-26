@@ -39,11 +39,13 @@ Moving a composited layer can avoid recalculating the positions of nearby elemen
 
   // Keep each verified state on screen long enough to read in the recording.
   const hold = (ms = 950) => page.waitForTimeout(ms);
+  reader.github.status = 502;
   await page.goto(reader.origin);
-  const signIn = page.getByRole('link', {name: 'Sign in with GitHub'});
-  await expect(signIn).toBeVisible();
-  await hold();
-  await signIn.click();
+  await expect(page.getByRole('status')).toContainText('The library could not be loaded from GitHub.');
+  await hold(1800);
+  reader.github.status = 200;
+  reader.github.time += 60001;
+  await page.getByRole('button', {name: 'Try again'}).click();
   await expect(page.getByRole('heading', {name: 'All topics (3)'})).toBeVisible({timeout: 10000});
   await hold();
 
@@ -84,12 +86,4 @@ Moving a composited layer can avoid recalculating the positions of nearby elemen
   // The overlay uses closed shadow roots. Verify placement through its hosts.
   await expect(page.locator('article > h1 + div, article > h2 + div')).toHaveCount(2);
   await hold(2200);
-
-  await page.goBack();
-  const signOut = page.getByRole('button', {name: 'Sign out', exact: true});
-  await expect(signOut).toBeVisible();
-  await hold();
-  await signOut.click();
-  await expect(signIn).toBeVisible();
-  await hold(1300);
 });

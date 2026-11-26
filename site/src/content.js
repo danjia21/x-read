@@ -32,7 +32,8 @@ export async function request(url, fetcher = fetch) {
     if (limited) {
       const retry = response.headers.get('retry-after');
       const delay = retry && /^\d+$/.test(retry) ? Date.now() + Number(retry) * 1000 : Date.parse(retry || '');
-      const reset = Number(response.headers.get('x-ratelimit-reset')) * 1000;
+      const reset = response.headers.get('x-ratelimit-remaining') === '0'
+        ? Number(response.headers.get('x-ratelimit-reset')) * 1000 : 0;
       error.retryAt = Math.max(Date.now() + 60000, Number.isFinite(delay) ? delay : 0, reset || 0);
     }
     throw error;
@@ -45,20 +46,25 @@ export async function loadLibrary({fetcher = fetch, onEntry = () => {}, cached =
   const tree = await (await request(`https://api.github.com/repos/${repository}/git/trees/${commit.commit.tree.sha}?recursive=1`, fetcher)).json();
   if (tree.truncated) throw new Error('The repository listing is incomplete. Please try again later.');
   const files = tree.tree.filter(f => f.type === 'blob' && entryPattern.test(f.path));
-  const entries = []; let failed = 0; let cursor = 0; let retryAt = 0;
+  const entries = []; let downloaded = 0; let cursor = 0; let retryAt = 0;
   await Promise.all(Array.from({length: Math.min(6, files.length)}, async () => {
     while (cursor < files.length) {
       if (retryAt > Date.now()) break;
       const file = files[cursor++];
       try {
         const raw = await (await request(`https://raw.githubusercontent.com/${repository}/${commit.sha}/${file.path.split('/').map(encodeURIComponent).join('/')}`, fetcher)).text();
-        const entry = prepareEntry(parseEntry(file.path, raw)); entries.push(entry); onEntry(entry);
-      } catch (error) { failed++; retryAt = Math.max(retryAt, error.retryAt || 0); }
+        const entry = prepareEntry(parseEntry(file.path, raw));
+        if (entry) {
+          entries.push(entry);
+          onEntry(entry);
+        }
+        downloaded++;
+      } catch (error) { retryAt = Math.max(retryAt, error.retryAt || 0); }
     }
   }));
-  failed = files.length - entries.length;
-  if (files.length && !entries.length) {
-    const error = new Error('The articles could not be downloaded. Check your connection and try again.');
+  const failed = files.length - downloaded;
+  if (files.length && !downloaded) {
+    const error = new Error('The reading notes could not be downloaded. Check your connection and try again.');
     error.retryAt = retryAt; throw error;
   }
   return {entries, failed, total: files.length, commit: commit.sha, retryAt};

@@ -43,9 +43,8 @@ See [`reading-journal/README.md`](reading-journal/README.md) for the journal for
 
 ## Browser reader
 
-[`site/`](site/) is a private notes index with GitHub sign-in, note search,
-topic filters, and light/dark themes. Access is restricted to the configured
-owner. A backend reads the repository using a GitHub App user token and caches
-notes in server memory (five minutes by default). See
-[`site/README.md`](site/README.md) for GitHub App registration, configuration,
-and container deployment.
+[`site/`](site/) is a public notes index with search, topic filters, sorting,
+and light and dark themes. The server fetches notes from public GitHub and shares
+a five-minute cache across visitors. **Read with notes** opens the original
+publisher page for inline annotation with the Chrome extension. See the
+[reader docs](site/README.md) for local setup, deployment, and verification.
