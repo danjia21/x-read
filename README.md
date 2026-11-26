@@ -44,8 +44,6 @@ See [`reading-journal/README.md`](reading-journal/README.md) for the journal for
 
 ## Browser reader
 
-Open the public journal at [read.danjia.me](https://read.danjia.me).
-
 [`site/`](site/) is a public notes index with search, topic filters, sorting,
 and light and dark themes. The server fetches notes from public GitHub and shares
 a five-minute cache across visitors. **Read with notes** opens the original
