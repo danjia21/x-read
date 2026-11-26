@@ -1,7 +1,8 @@
 # x-read
 
-`x-read` is my personal collection of AI-generated reading guides, annotations,
-and fact-checks for technical articles. The repository stores links and short
+`x-read` (pronounced “ex-red,” as in “I read X,” past tense) is my personal
+collection of AI-generated reading guides, annotations, and fact-checks for
+technical articles. The repository stores links and short
 placement anchors instead of copies of the articles. The Chrome extension opens
 each article on its publisher's website and places the corresponding notes into
 the reading flow.
