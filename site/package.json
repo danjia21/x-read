@@ -1,0 +1,30 @@
+{
+  "name": "x-read-reader",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build && NODE_ENV=development node --env-file-if-exists=../.env server/server.js",
+    "build": "vite build",
+    "test": "node --test tests/*.test.js server/*.test.js",
+    "start": "node server/server.js",
+    "test:e2e": "npm run build && playwright test",
+    "test:visual": "playwright test e2e/extension-visual.spec.js",
+    "test:walkthrough": "npm run build && playwright test --config playwright.walkthrough.config.js",
+    "test:e2e:report": "playwright show-report playwright-artifacts/e2e/report",
+    "test:walkthrough:report": "playwright show-report playwright-artifacts/walkthrough/report",
+    "verify": "npm run check:entries && npm test && npm run test:e2e",
+    "check:entries": "node scripts/migrate-notes-only.mjs --check",
+    "check:math": "node scripts/check-math.js"
+  },
+  "dependencies": {
+    "dompurify": "^3.3.0",
+    "katex": "^0.19.1",
+    "marked": "^17.0.0",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "jsdom": "^27.2.0",
+    "vite": "^7.2.0"
+  }
+}

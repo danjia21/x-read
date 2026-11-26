@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Reading Journal"
+  short_description: "Digest technical articles into a research journal"
+  default_prompt: "Use $technical-reading-journal to digest this technical article and add it to my reading journal: [URL]"

@@ -1,0 +1,27 @@
+name: Journal entry checks
+on:
+  push:
+    paths: ['reading-journal/entries/**', 'scripts/fetch_wechat.py', 'scripts/test_fetch_wechat.py', 'site/src/math.js', 'site/scripts/check-math.js', 'site/package*.json', '.github/workflows/journal-math.yml']
+  pull_request:
+    paths: ['reading-journal/entries/**', 'scripts/fetch_wechat.py', 'scripts/test_fetch_wechat.py', 'site/src/math.js', 'site/scripts/check-math.js', 'site/package*.json', '.github/workflows/journal-math.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  equations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+        working-directory: site
+      - run: npm run check:entries
+        working-directory: site
+      - run: npm run check:math
+        working-directory: site
+      - run: python3 -m unittest discover -s scripts -p 'test_*.py'

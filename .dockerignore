@@ -1,0 +1,12 @@
+# Only the reader source belongs in this image's build context.
+**
+!site/
+!site/**
+site/node_modules/
+site/dist/
+site/tests/
+site/server/*.test.js
+site/e2e/
+site/playwright.config.js
+site/playwright.walkthrough.config.js
+site/playwright-artifacts/

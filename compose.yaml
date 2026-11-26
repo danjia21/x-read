@@ -1,0 +1,46 @@
+name: x-read
+
+services:
+  reader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PUBLIC_URL: https://${SITE_DOMAIN:?Set SITE_DOMAIN}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:?Set GITHUB_CLIENT_ID}
+      GITHUB_ALLOWED_USER_ID: ${GITHUB_ALLOWED_USER_ID:?Set GITHUB_ALLOWED_USER_ID}
+      GITHUB_CLIENT_SECRET_FILE: /run/secrets/github_client_secret
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-300}
+    secrets:
+      - github_client_secret
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    networks:
+      - edge
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${TRAEFIK_NETWORK:?Set TRAEFIK_NETWORK}"
+      - "traefik.http.services.x-read.loadbalancer.server.port=3000"
+      - "traefik.http.routers.x-read.rule=Host(`${SITE_DOMAIN:?Set SITE_DOMAIN}`)"
+      - "traefik.http.routers.x-read.entrypoints=${TRAEFIK_ENTRYPOINT:-websecure}"
+      - "traefik.http.routers.x-read.service=x-read"
+      - "traefik.http.routers.x-read.tls=true"
+      - "traefik.http.routers.x-read.tls.certresolver=${TRAEFIK_CERT_RESOLVER:-letsencrypt}"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  edge:
+    external: true
+    name: ${TRAEFIK_NETWORK:?Set TRAEFIK_NETWORK}
+
+secrets:
+  github_client_secret:
+    file: ${GITHUB_CLIENT_SECRET_FILE_HOST:?Set GITHUB_CLIENT_SECRET_FILE_HOST}

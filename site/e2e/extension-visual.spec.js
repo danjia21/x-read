@@ -1,0 +1,81 @@
+import {fileURLToPath} from 'node:url';
+import {test, expect} from '@playwright/test';
+
+const overlay = fileURLToPath(new URL('../chrome-extension/overlay.js', import.meta.url));
+
+test('inline notes wrap and stay readable on a publisher page', async ({page}, testInfo) => {
+  await page.setContent(`<!doctype html>
+    <html lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { margin: 0; padding: clamp(20px, 5vw, 60px); color-scheme: light dark; }
+      article { max-width: 65rem; margin: auto; }
+      article > div { margin-block: 0; }
+    </style>
+    <main><article>
+      <h1>Understanding GRPO</h1>
+      <p>The article explains how group sampling provides a baseline for policy updates.</p>
+      <h2 lang="zh">仿真基准结果</h2>
+      <p lang="zh">本节比较不同条件下的任务完成率。</p>
+    </article></main>
+    </html>`);
+  await page.addScriptTag({path: overlay});
+  await page.evaluate(() => {
+    // Keep references for assertions without changing the production shadow mode.
+    const roots = [];
+    const attachShadow = Element.prototype.attachShadow;
+    Element.prototype.attachShadow = function (options) {
+      const root = attachShadow.call(this, options);
+      roots.push(root);
+      return root;
+    };
+    try {
+      globalThis.placeXReadNotes(location.href, [
+        {
+          heading: '',
+          passage: '',
+          title: 'Reading guide | From learned baselines to group-relative advantages',
+          text: 'GRPO removes PPO’s learned critic and estimates a prompt-local baseline from a group of completions. Follow the derivation to see how sampling affects the policy update and why the result depends on group size and reward noise.\n\nLook for the trade-off between bias, variance, and compute.',
+        },
+        {
+          heading: '仿真基准结果',
+          passage: '',
+          title: '注解 | 高成功率提示 benchmark 饱和',
+          text: '成功率超过 95% 时，平均分提供的区分度有限。可以进一步比较失败类型、长程任务、分布外扰动和不同 seed 的方差。',
+        },
+      ]);
+    } finally {
+      Element.prototype.attachShadow = attachShadow;
+    }
+    globalThis.noteRoots = roots;
+  });
+
+  for (const colorScheme of ['light', 'dark']) {
+    await page.emulateMedia({colorScheme});
+    const layout = await page.evaluate(() => ({
+      pageFits: document.documentElement.scrollWidth <= innerWidth,
+      notes: globalThis.noteRoots.map(root => {
+        const box = root.querySelector('details');
+        const text = root.querySelector('.note');
+        const {paddingInlineStart, paddingInlineEnd} = getComputedStyle(box);
+        const innerWidth = box.clientWidth - parseFloat(paddingInlineStart) - parseFloat(paddingInlineEnd);
+        const {paddingBlockStart, paddingBlockEnd} = getComputedStyle(root.host);
+        return {
+          title: text.querySelector('.title').textContent,
+          paragraphs: text.querySelectorAll('p').length,
+          fullWidth: Math.abs(text.getBoundingClientRect().width - innerWidth) < 1.5,
+          spaced: parseFloat(paddingBlockStart) >= 12 && parseFloat(paddingBlockEnd) >= 12,
+          fits: box.scrollWidth <= box.clientWidth,
+        };
+      }),
+    }));
+    expect(layout.pageFits).toBe(true);
+    expect(layout.notes).toEqual([
+      {title: expect.stringMatching(/^Reading guide/), paragraphs: 2, fullWidth: true, spaced: true, fits: true},
+      {title: expect.stringMatching(/^注解/), paragraphs: 1, fullWidth: true, spaced: true, fits: true},
+    ]);
+    const path = testInfo.outputPath(`inline-notes-${colorScheme}.png`);
+    await page.screenshot({path, fullPage: true});
+    await testInfo.attach(`Inline notes · ${colorScheme}`, {path, contentType: 'image/png'});
+  }
+});
