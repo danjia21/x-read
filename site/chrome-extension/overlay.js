@@ -9,12 +9,35 @@ globalThis.placeXReadNotes = function (source, notes) {
 
   const article = document.querySelector('main article') || document.querySelector('article') ||
     document.querySelector('main, [role="main"]') || document.body;
-  const headings = [...article.querySelectorAll('h1,h2,h3,h4,h5,h6')];
-  const passages = [...article.querySelectorAll('p, li, blockquote')].filter(node => !node.querySelector('p, li, blockquote'));
+  const isArticleContent = node =>
+    !node.closest('aside, nav, [role="complementary"], [role="navigation"], [hidden], [aria-hidden="true"]') &&
+    node.getClientRects().length;
+  const headings = [...article.querySelectorAll('h1,h2,h3,h4,h5,h6')].filter(isArticleContent);
+  const passages = [...article.querySelectorAll('p, li, blockquote')].filter(node =>
+    isArticleContent(node) && !node.querySelector('p, li, blockquote')
+  );
+  const paragraphs = passages.filter(node =>
+    node.tagName === 'P' && node.textContent.trim() && !node.closest('header, [role="banner"]')
+  );
+  const headingSet = new Set(headings);
+  const follows = (first, second) => Boolean(first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING);
   const normalize = text => text.normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
   const unique = candidates => candidates.length === 1 ? candidates[0] : null;
   const placements = new Map();
   const unplaced = [];
+
+  function hasBlockFlow(parent) {
+    const {display, flexDirection} = getComputedStyle(parent);
+    if (display === 'contents' && parent.parentElement) return hasBlockFlow(parent.parentElement);
+    return !display.includes('grid') && (!display.includes('flex') || flexDirection.startsWith('column'));
+  }
+
+  function gridColumnFor(node) {
+    if (!getComputedStyle(node.parentElement).display.includes('grid')) return '';
+    const {gridColumnStart, gridColumnEnd} = getComputedStyle(node);
+    return gridColumnStart === 'auto' || gridColumnStart.startsWith('span ') ?
+      '' : `${gridColumnStart} / ${gridColumnEnd}`;
+  }
 
   for (const note of notes) {
     const heading = normalize(note.heading);
@@ -30,10 +53,7 @@ globalThis.placeXReadNotes = function (source, notes) {
     placements.get(target).push(note);
   }
 
-  function group(title, items, target) {
-    const sample = target && passages.includes(target) ? target :
-      passages.find(node => node.tagName === 'P' && (target?.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)) ||
-      passages.find(node => node.tagName === 'P') || article;
+  function group(title, items, sample = paragraphs[0] || article) {
     const {fontSize, fontFamily} = getComputedStyle(sample);
     const host = document.createElement('div');
     hosts.push(host);
@@ -124,7 +144,37 @@ globalThis.placeXReadNotes = function (source, notes) {
     return host;
   }
 
-  for (const [target, items] of placements) target.after(group('x-read notes', items, target));
-  if (unplaced.length) article.append(group('x-read · Unplaced notes', unplaced));
+  for (const [target, items] of placements) {
+    const isHeading = headingSet.has(target);
+    const sectionEnd = isHeading && headings.find(node => node.tagName <= target.tagName && follows(target, node));
+    const paragraph = isHeading && paragraphs.find(node =>
+      follows(target, node) && (!sectionEnd || follows(node, sectionEnd))
+    );
+    const sample = isHeading ? paragraph || undefined : target;
+    const proseColumn = paragraph && gridColumnFor(paragraph);
+    const targetColumn = gridColumnFor(target);
+    if (target.tagName === 'H1' && proseColumn && target.closest('header')) {
+      const host = group('x-read notes', items, paragraph);
+      host.style.gridColumn = proseColumn;
+      paragraph.before(host);
+    } else if (targetColumn) {
+      const host = group('x-read notes', items, sample);
+      host.style.gridColumn = targetColumn;
+      target.after(host);
+    } else if (hasBlockFlow(target.parentElement)) {
+      target.after(group('x-read notes', items, sample));
+    } else if (paragraph && (proseColumn || hasBlockFlow(paragraph.parentElement))) {
+      const host = group('x-read notes', items, paragraph);
+      if (proseColumn) host.style.gridColumn = proseColumn;
+      paragraph.before(host);
+    } else {
+      unplaced.push(...items);
+    }
+  }
+  if (unplaced.length) {
+    const host = group('x-read · Unplaced notes', unplaced);
+    if (hasBlockFlow(article)) article.append(host);
+    else article.after(host);
+  }
   return true;
 };

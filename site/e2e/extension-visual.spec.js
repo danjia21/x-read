@@ -85,3 +85,49 @@ test('inline notes wrap and stay readable on a publisher page', async ({page}, t
     await testInfo.attach(`Inline notes · ${colorScheme}`, {path, contentType: 'image/png'});
   }
 });
+
+test('notes use article prose typography and stay out of adjacent grid tracks', async ({page}) => {
+  await page.setContent(`
+    <style>
+      .layout { display: grid; grid-template-columns: minmax(0, 1fr) 80px; }
+      .section-title, .prose { grid-column: 1; }
+      aside { grid-column: 2; grid-row: 1 / 3; font-size: 11px; }
+      .prose { font: 20px Georgia, serif; margin: 0; }
+    </style>
+    <main>
+      <header><h1>Article title</h1><p>Published today</p></header>
+      <div class="layout">
+        <aside><p>Related articles</p></aside>
+        <h2 class="section-title">Section title</h2>
+        <p class="prose">The publisher’s article starts here.</p>
+      </div>
+    </main>
+  `);
+  await page.addScriptTag({path: overlay});
+  const result = await page.evaluate(() => {
+    const roots = [];
+    const attachShadow = Element.prototype.attachShadow;
+    Element.prototype.attachShadow = function (options) {
+      const root = attachShadow.call(this, options);
+      roots.push(root);
+      return root;
+    };
+    try {
+      globalThis.placeXReadNotes(location.href, [
+        {heading: '', passage: '', title: 'Guide', text: 'The reading guide.'},
+        {heading: 'Section title', passage: '', title: 'Annotation', text: 'The section note.'},
+      ]);
+    } finally {
+      Element.prototype.attachShadow = attachShadow;
+    }
+    return roots.map(({host, firstElementChild}) => ({
+      afterSectionTitle: host.previousElementSibling?.tagName === 'H2',
+      matchesProseWidth: host.offsetWidth === document.querySelector('.prose').offsetWidth,
+      fontSize: getComputedStyle(firstElementChild.querySelector('p')).fontSize,
+    }));
+  });
+  expect(result).toEqual([
+    {afterSectionTitle: false, matchesProseWidth: true, fontSize: '20px'},
+    {afterSectionTitle: true, matchesProseWidth: true, fontSize: '20px'},
+  ]);
+});
