@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "x-read Notes",
-  "version": "0.1.1",
-  "description": "Show x-read notes on the original article when you click the toolbar icon.",
+  "version": "0.2.0",
+  "description": "Show x-read notes on the original article with publisher-site access.",
   "permissions": ["activeTab", "scripting", "storage"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
   "background": {"service_worker": "background.js"},
   "action": {"default_title": "Show x-read notes"},
   "content_scripts": [{

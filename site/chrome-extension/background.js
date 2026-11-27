@@ -15,12 +15,12 @@ async function openArticle(message) {
         (note.title !== undefined && (typeof note.title !== 'string' || note.title.length > 500)) ||
         typeof note.text !== 'string' || !note.text.trim() || note.text.length > 16000)) return {ok: false};
 
-  const tab = await chrome.tabs.create({url: message.source, active: false});
+  const tab = await chrome.tabs.create({active: false});
   try {
     await chrome.storage.session.set({['notes:' + tab.id]: {source, notes: message.notes}});
     await chrome.action.setBadgeText({tabId: tab.id, text: 'ON'});
     await chrome.action.setTitle({tabId: tab.id, title: 'Click to place x-read notes on this article'});
-    await chrome.tabs.update(tab.id, {active: true});
+    await chrome.tabs.update(tab.id, {url: message.source, active: true});
     return {ok: true};
   } catch {
     await chrome.storage.session.remove('notes:' + tab.id);
@@ -35,6 +35,43 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
   return true;
 });
 
+async function placeNotes(tabId, item) {
+  await chrome.scripting.executeScript({target: {tabId}, files: ['overlay.js']});
+  const [{result}] = await chrome.scripting.executeScript({
+    target: {tabId},
+    func: (source, notes) => globalThis.placeXReadNotes(source, notes),
+    args: [item.source, item.notes],
+  });
+  if (result) {
+    await chrome.action.setBadgeText({tabId, text: ''});
+    await chrome.action.setTitle({tabId, title: 'Show x-read notes again'});
+  }
+}
+
+async function autoPlace(tab, requestAccess = false) {
+  const key = 'notes:' + tab.id;
+  const item = (await chrome.storage.session.get(key))[key];
+  if (!item) return;
+
+  const source = new URL(item.source);
+  const pattern = `${source.protocol}//${source.hostname}/*`;
+  if (await chrome.permissions.contains({origins: [pattern]})) {
+    if (publisherURL(tab.url) === item.source) await placeNotes(tab.id, item);
+  } else if (requestAccess && (!tab.url || publisherURL(tab.url) === item.source)) {
+    await chrome.permissions.addHostAccessRequest?.({tabId: tab.id, pattern});
+  }
+}
+
+chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
+  if (change.status === 'complete') autoPlace(tab, true).catch(() => {});
+});
+
+chrome.permissions.onAdded.addListener(async ({origins}) => {
+  if (!origins?.length) return;
+  const tabs = await chrome.tabs.query({status: 'complete'});
+  await Promise.allSettled(tabs.map(tab => autoPlace(tab)));
+});
+
 chrome.action.onClicked.addListener(async tab => {
   const key = 'notes:' + tab.id;
   const item = (await chrome.storage.session.get(key))[key];
@@ -44,16 +81,7 @@ chrome.action.onClicked.addListener(async tab => {
   }
 
   try {
-    // Only the active tab receives the annotations, after the toolbar click.
-    await chrome.scripting.executeScript({target: {tabId: tab.id}, files: ['overlay.js']});
-    const [{result}] = await chrome.scripting.executeScript({
-      target: {tabId: tab.id},
-      func: (source, notes) => globalThis.placeXReadNotes(source, notes),
-      args: [item.source, item.notes],
-    });
-    if (!result) return;
-    await chrome.action.setBadgeText({tabId: tab.id, text: ''});
-    await chrome.action.setTitle({tabId: tab.id, title: 'Show x-read notes again'});
+    await placeNotes(tab.id, item);
   } catch {
     await chrome.action.setTitle({tabId: tab.id, title: 'Could not place notes. Wait for the article to load and try again.'});
   }

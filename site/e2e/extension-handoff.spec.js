@@ -39,6 +39,10 @@ An annotation for the publisher page.
     const [article] = await Promise.all([context.waitForEvent('page'), button.click()]);
     await expect(article).toHaveURL(publisher);
     await expect(article.locator('body')).toHaveText('ok');
+    // The unpacked extension already has access to the loopback fixture.
+    await expect(article.locator('body > div')).toHaveCount(1);
+    await article.reload();
+    await expect(article.locator('body > div')).toHaveCount(1);
     await expect(button).toBeEnabled();
     await expect(entry.locator('.entry-action-status')).toBeHidden();
   } finally {

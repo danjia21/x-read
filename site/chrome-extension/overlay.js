@@ -30,7 +30,11 @@ globalThis.placeXReadNotes = function (source, notes) {
     placements.get(target).push(note);
   }
 
-  function group(title, items) {
+  function group(title, items, target) {
+    const sample = target && passages.includes(target) ? target :
+      passages.find(node => node.tagName === 'P' && (target?.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)) ||
+      passages.find(node => node.tagName === 'P') || article;
+    const {fontSize, fontFamily} = getComputedStyle(sample);
     const host = document.createElement('div');
     hosts.push(host);
     const shadow = host.attachShadow({mode: 'closed'});
@@ -51,7 +55,7 @@ globalThis.placeXReadNotes = function (source, notes) {
         border-radius: 8px;
         padding: .85rem clamp(.85rem, 3vw, 1.5rem);
         text-align: start;
-        font: 1rem/1.75 system-ui, sans-serif;
+        line-height: 1.75;
       }
 
       summary {
@@ -90,6 +94,8 @@ globalThis.placeXReadNotes = function (source, notes) {
     `);
     shadow.adoptedStyleSheets = [css];
     const details = document.createElement('details');
+    details.style.fontSize = fontSize;
+    details.style.fontFamily = fontFamily;
     details.open = true;
     const label = document.createElement('summary');
     label.textContent = title;
@@ -114,7 +120,7 @@ globalThis.placeXReadNotes = function (source, notes) {
     return host;
   }
 
-  for (const [target, items] of placements) target.after(group('x-read notes', items));
+  for (const [target, items] of placements) target.after(group('x-read notes', items, target));
   if (unplaced.length) article.append(group('x-read · Unplaced notes', unplaced));
   return true;
 };

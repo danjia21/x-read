@@ -86,15 +86,16 @@ report with `npm run test:walkthrough:report`.
    choose **Load unpacked**. Select the `site/chrome-extension` folder.
 2. Pin **x-read Notes** from Chrome's Extensions menu. Refresh the local x-read
    page after installing or reloading the extension.
-3. Click **Read with notes** beneath an entry on the library page.
-   On the publisher tab, click the pinned **x-read Notes** icon.
+3. Click **Read with notes** beneath an entry on the library page. In Chrome
+   133 or later, approve x-read Notes' site access request in the Extensions
+   menu. Notes appear automatically on articles opened from x-read for that
+   publisher after approval. The toolbar icon can also place notes on demand.
 
 The extension temporarily receives only the selected entry's note text and
-anchors. It requests access to the opened article tab through the toolbar
-click. Notes go under a unique matching passage or heading, and ambiguous or
-missing anchors go under **Unplaced notes**. Reloading the publisher page resets
-its displayed notes. Click the icon again to restore them. An article redirected
-to a different URL may require updating its source link.
+anchors. It uses the article's body font and size near each anchor. Notes go
+under a unique matching passage or heading, and ambiguous or missing anchors
+go under **Unplaced notes**. An article redirected to a different URL may
+require updating its source link.
 
 Notes can use heading and passage anchors to match locations on the publisher’s
 page. The overlay displays the notes as plain text.

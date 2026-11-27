@@ -10,6 +10,8 @@ test('inline notes wrap and stay readable on a publisher page', async ({page}, t
     <style>
       body { margin: 0; padding: clamp(20px, 5vw, 60px); color-scheme: light dark; }
       article { max-width: 65rem; margin: auto; }
+      article p { font: 18px Georgia, serif; }
+      article p[lang="zh"] { font: 21px sans-serif; }
       article > div { margin-block: 0; }
     </style>
     <main><article>
@@ -62,6 +64,8 @@ test('inline notes wrap and stay readable on a publisher page', async ({page}, t
         const {paddingBlockStart, paddingBlockEnd} = getComputedStyle(root.host);
         return {
           title: text.querySelector('.title').textContent,
+          fontSize: getComputedStyle(text.querySelector('p')).fontSize,
+          fontFamily: getComputedStyle(text.querySelector('p')).fontFamily,
           paragraphs: text.querySelectorAll('p').length,
           fullWidth: Math.abs(text.getBoundingClientRect().width - innerWidth) < 1.5,
           spaced: parseFloat(paddingBlockStart) >= 12 && parseFloat(paddingBlockEnd) >= 12,
@@ -71,8 +75,8 @@ test('inline notes wrap and stay readable on a publisher page', async ({page}, t
     }));
     expect(layout.pageFits).toBe(true);
     expect(layout.notes).toEqual([
-      {title: expect.stringMatching(/^Reading guide/), paragraphs: 2, fullWidth: true, spaced: true, fits: true},
-      {title: expect.stringMatching(/^注解/), paragraphs: 1, fullWidth: true, spaced: true, fits: true},
+      {title: expect.stringMatching(/^Reading guide/), fontSize: '18px', fontFamily: 'Georgia, serif', paragraphs: 2, fullWidth: true, spaced: true, fits: true},
+      {title: expect.stringMatching(/^注解/), fontSize: '21px', fontFamily: 'sans-serif', paragraphs: 1, fullWidth: true, spaced: true, fits: true},
     ]);
     const path = testInfo.outputPath(`inline-notes-${colorScheme}.png`);
     await page.screenshot({path, fullPage: true});
