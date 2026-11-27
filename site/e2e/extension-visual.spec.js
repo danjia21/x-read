@@ -10,9 +10,9 @@ test('inline notes wrap and stay readable on a publisher page', async ({page}, t
     <style>
       body { margin: 0; padding: clamp(20px, 5vw, 60px); color-scheme: light dark; }
       article { max-width: 65rem; margin: auto; }
-      article p { font: 18px Georgia, serif; }
+      article p { margin: 0; font: 18px Georgia, serif; }
       article p[lang="zh"] { font: 21px sans-serif; }
-      article > div { margin-block: 0; }
+      article > div { margin-block: 0; padding-block: 0; }
     </style>
     <main><article>
       <h1>Understanding GRPO</h1>
@@ -61,14 +61,16 @@ test('inline notes wrap and stay readable on a publisher page', async ({page}, t
         const text = root.querySelector('.note');
         const {paddingInlineStart, paddingInlineEnd} = getComputedStyle(box);
         const innerWidth = box.clientWidth - parseFloat(paddingInlineStart) - parseFloat(paddingInlineEnd);
-        const {paddingBlockStart, paddingBlockEnd} = getComputedStyle(root.host);
+        const {top, bottom} = box.getBoundingClientRect();
+        const spaceAbove = top - root.host.getBoundingClientRect().top;
+        const spaceBelow = root.host.nextElementSibling.getBoundingClientRect().top - bottom;
         return {
           title: text.querySelector('.title').textContent,
           fontSize: getComputedStyle(text.querySelector('p')).fontSize,
           fontFamily: getComputedStyle(text.querySelector('p')).fontFamily,
           paragraphs: text.querySelectorAll('p').length,
           fullWidth: Math.abs(text.getBoundingClientRect().width - innerWidth) < 1.5,
-          spaced: parseFloat(paddingBlockStart) >= 12 && parseFloat(paddingBlockEnd) >= 12,
+          spaced: spaceAbove >= 12 && spaceBelow >= 18,
           fits: box.scrollWidth <= box.clientWidth,
         };
       }),

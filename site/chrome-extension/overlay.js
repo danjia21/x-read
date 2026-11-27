@@ -42,9 +42,10 @@ globalThis.placeXReadNotes = function (source, notes) {
     css.replaceSync(`
       :host {
         display: block;
-        padding-block: .875rem;
         color-scheme: light dark;
       }
+
+      .frame { padding-block: .875rem 1.25rem; }
 
       details {
         box-sizing: border-box;
@@ -116,7 +117,10 @@ globalThis.placeXReadNotes = function (source, notes) {
       }
       details.append(content);
     }
-    shadow.append(details);
+    const frame = document.createElement('div');
+    frame.className = 'frame';
+    frame.append(details);
+    shadow.append(frame);
     return host;
   }
 
