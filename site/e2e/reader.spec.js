@@ -118,6 +118,9 @@ A layout change can move nearby elements. A transform can sometimes be handled b
   await openLibrary(page, reader);
   const card = page.locator('.entry').filter({has:page.getByRole('heading',{name:'Browser rendering',exact:true})});
   await expect(page.locator('iframe')).toHaveCount(0);
+  const button = card.getByRole('button',{name:'Read with notes'});
+  await button.click();
+  await expect(card.getByRole('status')).toContainText('Install or reload the x-read Notes Chrome extension');
   const payload = page.evaluate(() => new Promise(resolve => {
     window.addEventListener('message', event => {
       if (event.source === window && event.data?.type === 'x-read:open-with-notes') {
@@ -126,8 +129,9 @@ A layout change can move nearby elements. A transform can sometimes be handled b
       }
     });
   }));
-  await card.getByRole('button',{name:'Read with notes'}).click();
-  await expect(card.getByRole('status')).toContainText('Click the x-read Notes icon');
+  await button.click();
+  await expect(button).toBeEnabled();
+  await expect(card.locator('.entry-action-status')).toBeHidden();
   expect(await payload).toMatchObject({
     source:'https://example.org/browsers',
     notes:[{heading:'',passage:'',title:'Reading guide',text:expect.stringContaining('Watch how the DOM')},

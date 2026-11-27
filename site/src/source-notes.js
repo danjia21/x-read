@@ -28,11 +28,15 @@ export function renderNotesAction(entry, source) {
   open.type = 'button';
   const status = element('p', '', 'entry-action-status');
   status.setAttribute('role', 'status');
+  status.hidden = true;
   actions.append(open, status);
   open.addEventListener('click', () => {
+    status.textContent = '';
+    status.hidden = true;
     const notes = extensionNotes(entry);
     if (!notes.length) {
       status.textContent = 'No reading notes for this entry.';
+      status.hidden = false;
       return;
     }
     open.disabled = true;
@@ -41,13 +45,14 @@ export function renderNotesAction(entry, source) {
       window.removeEventListener('message', handleResult);
       clearTimeout(timeout);
       status.textContent = message;
+      status.hidden = !message;
       open.disabled = false;
     };
     const handleResult = event => {
       if (event.source !== window || event.origin !== location.origin ||
           event.data?.type !== 'x-read:extension-result' || event.data.id !== id) return;
       finish(event.data.ok
-        ? 'Click the x-read Notes icon in the article tab to place your notes.'
+        ? ''
         : 'The extension could not open this article. You can still open the original.');
     };
     window.addEventListener('message', handleResult);

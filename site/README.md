@@ -99,9 +99,9 @@ to a different URL may require updating its source link.
 Notes can use heading and passage anchors to match locations on the publisher’s
 page. The overlay displays the notes as plain text.
 
-The extension bridge is configured for the loopback reader on ports 3000 and
-4173. To connect a hosted reader, add its exact origin to `bridge.js` and its
-content-script match pattern to `manifest.json`, then reload the extension.
+The extension supports the hosted reader at `https://read.danjia.me` and local
+readers on ports 3000 and 4173. After updating the unpacked extension files,
+reload x-read Notes in `chrome://extensions` and refresh the journal tab.
 
 ### Automated note screenshots
 

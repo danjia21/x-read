@@ -75,7 +75,8 @@ Moving a composited layer can avoid recalculating the positions of nearby elemen
     });
   });
   await page.getByRole('button', {name: 'Read with notes'}).click();
-  await expect(page.getByRole('status').filter({hasText: 'Click the x-read Notes icon'})).toBeVisible();
+  await expect(page.getByRole('button', {name: 'Read with notes'})).toBeEnabled();
+  await expect(page.locator('.entry-action-status')).toBeHidden();
   const handoff = await page.evaluate(() => window.walkthroughHandoff);
   expect(handoff.source).toBe(source);
   await page.goto(handoff.source);
