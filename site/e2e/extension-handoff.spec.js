@@ -7,7 +7,7 @@ const hostedOrigin = 'https://read.danjia.me';
 
 test('installed extension opens the publisher from the hosted reader without a status line', async ({reader}, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'Chrome extension test');
-  const publisher = reader.origin + '/healthz';
+  const publisher = 'https://publisher.example/article';
   reader.github.articleMarkdown = `---
 format: notes-v1
 title: Browser rendering
@@ -28,7 +28,9 @@ An annotation for the publisher page.
         const response = await route.fetch({url: reader.origin + pathname + search});
         return route.fulfill({response});
       }
-      if (route.request().url() === publisher) return route.continue();
+      if (route.request().url() === publisher) {
+        return route.fulfill({contentType: 'text/html', body: '<!doctype html><p>Publisher article fixture.</p>'});
+      }
       await route.abort();
     });
 
@@ -38,11 +40,10 @@ An annotation for the publisher page.
     const button = entry.getByRole('button', {name: 'Read with notes'});
     const [article] = await Promise.all([context.waitForEvent('page'), button.click()]);
     await expect(article).toHaveURL(publisher);
-    await expect(article.locator('body')).toHaveText('ok');
-    // The unpacked extension already has access to the loopback fixture.
-    await expect(article.locator('body > div')).toHaveCount(1);
+    await expect(article.getByText('Publisher article fixture.')).toBeVisible();
+    await expect(article.locator('body > div')).toBeVisible();
     await article.reload();
-    await expect(article.locator('body > div')).toHaveCount(1);
+    await expect(article.locator('body > div')).toBeVisible();
     await expect(button).toBeEnabled();
     await expect(entry.locator('.entry-action-status')).toBeHidden();
   } finally {

@@ -48,22 +48,14 @@ async function placeNotes(tabId, item) {
   }
 }
 
-async function autoPlace(tab, requestAccess = false) {
+async function autoPlace(tab) {
   const key = 'notes:' + tab.id;
   const item = (await chrome.storage.session.get(key))[key];
-  if (!item) return;
-
-  const source = new URL(item.source);
-  const pattern = `${source.protocol}//${source.hostname}/*`;
-  if (await chrome.permissions.contains({origins: [pattern]})) {
-    if (publisherURL(tab.url) === item.source) await placeNotes(tab.id, item);
-  } else if (requestAccess && (!tab.url || publisherURL(tab.url) === item.source)) {
-    await chrome.permissions.addHostAccessRequest?.({tabId: tab.id, pattern});
-  }
+  if (item && publisherURL(tab.url) === item.source) await placeNotes(tab.id, item);
 }
 
 chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
-  if (change.status === 'complete') autoPlace(tab, true).catch(() => {});
+  if (change.status === 'complete') autoPlace(tab).catch(() => {});
 });
 
 chrome.permissions.onAdded.addListener(async ({origins}) => {

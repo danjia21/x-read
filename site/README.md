@@ -86,10 +86,12 @@ report with `npm run test:walkthrough:report`.
    choose **Load unpacked**. Select the `site/chrome-extension` folder.
 2. Pin **x-read Notes** from Chrome's Extensions menu. Refresh the local x-read
    page after installing or reloading the extension.
-3. Click **Read with notes** beneath an entry on the library page. In Chrome
-   133 or later, approve x-read Notes' site access request in the Extensions
-   menu. Notes appear automatically on articles opened from x-read for that
-   publisher after approval. The toolbar icon can also place notes on demand.
+3. Click **Read with notes** beneath an entry. Notes appear automatically on
+   the matching original article. The toolbar icon can place them again on demand.
+
+Chrome asks for access to HTTP and HTTPS websites when users install the
+extension. Journal entries can link to any publisher. The extension inserts
+notes only in matching tabs opened through **Read with notes**.
 
 The extension temporarily receives only the selected entry's note text and
 anchors. It uses the article's body font and size near each anchor. Notes go

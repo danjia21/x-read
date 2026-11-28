@@ -6,7 +6,7 @@ The extension receives the selected article URL and its public journal notes fro
 
 The extension reads text on the matching publisher page to locate the passages that the notes refer to. This processing happens in Chrome. The extension does not transmit publisher text, the stored article URL, or notes from its session storage to x-read or an analytics service. Opening the article makes a normal browser request to the publisher, whose privacy practices apply to that visit.
 
-You can use the toolbar button to display notes in the article tab. You can also grant optional access to a publisher site for automatic display and revoke that access in Chrome’s extension settings.
+Chrome requests access to HTTP and HTTPS websites at installation because journal entries can link to any publisher. The extension uses that access to display notes automatically in matching article tabs opened through **Read with notes**. You can manage website access in Chrome’s extension settings.
 
 The extension does not sell user data or use it for advertising, profiling, creditworthiness, or lending. Its handling of user data adheres to the [Chrome Web Store User Data Policy](https://developer.chrome.com/docs/webstore/program-policies/user-data-faq), including the Limited Use requirements.
 
