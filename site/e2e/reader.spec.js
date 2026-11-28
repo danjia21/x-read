@@ -120,7 +120,9 @@ A layout change can move nearby elements. A transform can sometimes be handled b
   await expect(page.locator('iframe')).toHaveCount(0);
   const button = card.getByRole('button',{name:'Read with notes'});
   await button.click();
-  await expect(card.getByRole('status')).toContainText('Install or reload the x-read Notes Chrome extension');
+  const storeUrl = 'https://chromewebstore.google.com/detail/cpdnlcmlfjdaehaaoddpgmhfgpnpbken';
+  await expect(page.getByRole('link', {name:'Install x-read Notes for desktop Chrome'})).toHaveAttribute('href', storeUrl);
+  await expect(card.getByRole('status').getByRole('link', {name:'Install x-read Notes'})).toHaveAttribute('href', storeUrl);
   const payload = page.evaluate(() => new Promise(resolve => {
     window.addEventListener('message', event => {
       if (event.source === window && event.data?.type === 'x-read:open-with-notes') {

@@ -47,5 +47,6 @@ See [`reading-journal/README.md`](reading-journal/README.md) for the journal for
 [`site/`](site/) is a public notes index with search, topic filters, sorting,
 and light and dark themes. The server fetches notes from public GitHub and shares
 a five-minute cache across visitors. **Read with notes** opens the original
-publisher page for inline annotation with the Chrome extension. See the
+publisher page for inline annotation with the Chrome extension.
+[Install x-read Notes for desktop Chrome](https://chromewebstore.google.com/detail/cpdnlcmlfjdaehaaoddpgmhfgpnpbken). See the
 [reader docs](site/README.md) for local setup, deployment, and verification.

@@ -50,3 +50,5 @@ main{width:100%;max-width:none;padding:2.5rem 3.5rem;min-width:0}
 .entry-actions button:hover{text-decoration:underline;text-underline-offset:3px}
 .entry-action-status{flex-basis:100%;color:var(--muted);margin:0;line-height:1.5}
 .entry-action-status:empty{display:none}
+
+.extension-install{display:block;margin-top:.5rem;font-family:var(--sans);font-size:.85rem;color:var(--accent)}

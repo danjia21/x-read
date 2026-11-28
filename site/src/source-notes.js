@@ -41,10 +41,11 @@ export function renderNotesAction(entry, source) {
     }
     open.disabled = true;
     const id = crypto.randomUUID();
-    const finish = message => {
+    const finish = (message, link) => {
       window.removeEventListener('message', handleResult);
       clearTimeout(timeout);
-      status.textContent = message;
+      status.replaceChildren(message);
+      if (link) status.append(link, ', then refresh this page.');
       status.hidden = !message;
       open.disabled = false;
     };
@@ -56,7 +57,11 @@ export function renderNotesAction(entry, source) {
         : 'The extension could not open this article. You can still open the original.');
     };
     window.addEventListener('message', handleResult);
-    const timeout = setTimeout(() => finish('Install or reload the x-read Notes Chrome extension, then refresh this page.'), 2500);
+    const timeout = setTimeout(() => {
+      const install = element('a', 'Install x-read Notes');
+      install.href = document.querySelector('.extension-install').href;
+      finish('Extension unavailable. ', install);
+    }, 2500);
     window.postMessage({type: 'x-read:open-with-notes', id, source: source.href, notes}, location.origin);
   });
   return actions;
